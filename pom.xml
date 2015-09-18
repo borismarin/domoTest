@@ -16,7 +16,7 @@
 				<version>0.0.1-SNAPSHOT</version>
 				<configuration>
 					<greeting>Welcome</greeting>
-					<mlName>org.testml.model</mlName>
+					<mlName>testml</mlName>
 				</configuration>
 				<executions>
 					<execution>
