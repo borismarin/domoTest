@@ -16,7 +16,7 @@
 				<version>0.0.1-SNAPSHOT</version>
 				<configuration>
 					<mlName>FooML</mlName>
-					<componentTypeDefs>${project.basedir}/src/main/lems/FooML.xml</componentTypeDefs>
+					<componentTypeDefs>${project.basedir}/src/main/resources/lems/FooML.xml</componentTypeDefs>
 				</configuration>
 				<executions>
 					<execution>

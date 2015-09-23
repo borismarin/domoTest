@@ -18,9 +18,7 @@ public class DoMoGenerationTest {
 
 	@Before
 	public void setUp() throws Throwable {
-		domainDefs = new LEMSCompilerFrontend(
-				getLocalFile("FooML.xml"))
-				.generateLEMSDocument();
+		domainDefs = new LEMSCompilerFrontend(getLocalFile("/lems/FooML.xml")) .generateLEMSDocument();
 
 
 		// We then want to unmarshall a DS model (defined in xml) using the
