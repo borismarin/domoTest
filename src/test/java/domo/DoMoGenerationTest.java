@@ -4,8 +4,13 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.List;
 
 import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.PropertyException;
 import javax.xml.bind.Unmarshaller;
 
 import org.FooML.model.Bar;
@@ -20,6 +25,9 @@ import org.lemsml.model.compiler.semantic.LEMSSemanticAnalyser;
 import org.lemsml.model.exceptions.LEMSCompilerException;
 import org.lemsml.model.extended.Component;
 import org.lemsml.model.extended.Lems;
+
+import com.google.common.base.Charsets;
+import com.google.common.io.Files;
 
 
 public class DoMoGenerationTest {
@@ -98,30 +106,30 @@ public class DoMoGenerationTest {
 							.getScope()
 							.evaluate("dpBar").getValue().doubleValue(), 1e-12);
 	}
-//
-//	@Test
-//	public void testMarshalling()
-//			throws JAXBException, PropertyException, IOException {
-//
-//		File tmpFile = File.createTempFile("test", ".xml");
-//		Marshaller marshaller = jaxbContext.createMarshaller();
-//		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-//
-//		fooModel.getComponentTypes().clear();
-//		eraseTypes(fooModel.getComponents()); //TODO: extremely ugly hack
-//
-//		marshaller.marshal(fooModel, tmpFile);
-//		System.out.println(Files.toString(tmpFile, Charsets.UTF_8));
-//	}
-//
-//	//TODO: argh! @XmlTransient in ext.Comp isn't overriding type from (on-ext)Comp
-//	void eraseTypes(List<Component> list){
-//		for(Component comp : list){
-//			eraseTypes(comp.getComponent());
-//			comp.withType(null);
-//		}
-//
-//	}
+
+	@Test
+	public void testMarshalling()
+			throws JAXBException, PropertyException, IOException {
+
+		File tmpFile = File.createTempFile("test", ".xml");
+		Marshaller marshaller = jaxbContext.createMarshaller();
+		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+
+		fooModel.getComponentTypes().clear();
+		eraseTypes(fooModel.getComponents()); //TODO: extremely ugly hack
+
+		marshaller.marshal(fooModel, tmpFile);
+		System.out.println(Files.toString(tmpFile, Charsets.UTF_8));
+	}
+
+	//TODO: argh! @XmlTransient in ext.Comp isn't overriding type from (on-ext)Comp
+	void eraseTypes(List<Component> list){
+		for(Component comp : list){
+			eraseTypes(comp.getComponent());
+			comp.withType(null);
+		}
+
+	}
 
 	protected File getLocalFile(String fname) {
 		return new File(getClass().getResource(fname).getFile());
